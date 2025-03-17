@@ -1,21 +1,25 @@
-name: Node.js CI
+name: apiSqlGateWay CI
 
 on: 
   push:
     branches:
       - testCI      # 仅 testCI 分支的推送触发
     paths:
+      - .github\workflows\ci.yml
       - "src/**"  # 仅 src 目录下的文件变更触发[5,6](@ref)
-
+      
 jobs:
-  build:
+  ymHelloWorld:
+    env:
+      CI: true
 
-    # runs-on: ubuntu-latest
-    runs-on: windows-latest
-    
+    # runs-on: ubuntu-latest # ubuntu-22.04-arm-os
+    runs-on: windows-latest # windows-2022 windows-2019 windows-2025
+
     strategy:
       matrix:
-        node-version: [21.6.1]
+        # node-version: [21.6.1]
+        node-version: [18.18.2]
 
     steps:
     - uses: actions/checkout@v2
@@ -24,7 +28,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
-    - run: npm run build --if-present
+    # - run: npm run build --if-present
     - run: npm test
-      env:
-        CI: true
