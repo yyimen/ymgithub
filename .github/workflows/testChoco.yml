@@ -5,19 +5,19 @@ on:
       - testCI
 jobs:
   install-nodejs:
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
       - name: env check
         shell: cmd
-        run: |
-          dir "C:\Program Files"
-          dir "C:\Program Files(x86)"
-
+        run: dir "C:\Program Files"
+      - name: env check
+        shell: cmd
+        run: dir "C:\Program Files(x86)"
       
       - name: check node install
         shell: cmd  
         run: |
-          node -p "process.arch"
+          node -p "process.platform && process.arch"
           node --version  
 
       # - name: Install Chocolatey
