@@ -14,43 +14,56 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 下载并安装 NVM
-      - name: Install NVM
-        run: |
-          Invoke-WebRequest -Uri https://github.com/coreybutler/nvm-windows/releases/download/1.1.11/nvm-setup.zip -OutFile nvm-setup.zip
-          Expand-Archive -Path nvm-setup.zip -DestinationPath .
-          .\nvm-setup\nvm-setup.exe /S
-        shell: powershell
+      - name: Use Node.js
+        uses: irby/setup-node-nvm@master
+        with:
+          node-version: '18.18.2 32'
 
-      # 配置环境变量
-      - name: Set NVM environment variables
-        run: |
-          $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
-          $env:NVM_HOME = "C:\Users\runneradmin\AppData\Roaming\nvm"
-          $env:NVM_SYMLINK = "C:\Program Files\nodejs"
-          [System.Environment]::SetEnvironmentVariable("NVM_HOME", $env:NVM_HOME, [System.EnvironmentVariableTarget]::User)
-          [System.Environment]::SetEnvironmentVariable("NVM_SYMLINK", $env:NVM_SYMLINK, [System.EnvironmentVariableTarget]::User)
-          [System.Environment]::SetEnvironmentVariable("Path", $env:Path, [System.EnvironmentVariableTarget]::User)
-        shell: powershell
-
-      # 配置 NVM 使用 32 位版本
-      - name: Configure NVM for 32-bit
-        run: nvm arch 32
-        shell: powershell
-
-      # 安装 Node.js 18.18.2
-      - name: Install Node.js 18.18.2
-        run: nvm install 18.18.2
-        shell: powershell
-
-      # 使用 Node.js 18.18.2
-      - name: Use Node.js 18.18.2
-        run: nvm use 18.18.2
-        shell: powershell
-
-      # 验证 Node.js 和 npm 版本
       - name: Verify Node.js and npm versions
         run: |
           node -v
           npm -v
+          node -p "process.arch"
         shell: powershell
+         
+      # # 下载并安装 NVM
+      # - name: Install NVM
+      #   run: |
+      #     Invoke-WebRequest -Uri https://github.com/coreybutler/nvm-windows/releases/download/1.1.11/nvm-setup.zip -OutFile nvm-setup.zip
+      #     Expand-Archive -Path nvm-setup.zip -DestinationPath .
+      #     Get-Location
+      #     .\nvm-setup\nvm-setup.exe /S
+      #   shell: powershell
+
+      # # 配置环境变量
+      # - name: Set NVM environment variables
+      #   run: |
+      #     $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
+      #     $env:NVM_HOME = "C:\Users\runneradmin\AppData\Roaming\nvm"
+      #     $env:NVM_SYMLINK = "C:\Program Files\nodejs"
+      #     [System.Environment]::SetEnvironmentVariable("NVM_HOME", $env:NVM_HOME, [System.EnvironmentVariableTarget]::User)
+      #     [System.Environment]::SetEnvironmentVariable("NVM_SYMLINK", $env:NVM_SYMLINK, [System.EnvironmentVariableTarget]::User)
+      #     [System.Environment]::SetEnvironmentVariable("Path", $env:Path, [System.EnvironmentVariableTarget]::User)
+      #   shell: powershell
+
+      # # 配置 NVM 使用 32 位版本
+      # - name: Configure NVM for 32-bit
+      #   run: nvm arch 32
+      #   shell: powershell
+
+      # # 安装 Node.js 18.18.2
+      # - name: Install Node.js 18.18.2
+      #   run: nvm install 18.18.2
+      #   shell: powershell
+
+      # # 使用 Node.js 18.18.2
+      # - name: Use Node.js 18.18.2
+      #   run: nvm use 18.18.2
+      #   shell: powershell
+
+      # # 验证 Node.js 和 npm 版本
+      # - name: Verify Node.js and npm versions
+      #   run: |
+      #     node -v
+      #     npm -v
+      #   shell: powershell
