@@ -1,0 +1,19 @@
+name: Install Node.js 18.18.2 32-bit on Windows
+on:
+  push:
+    branches:
+      - testCI
+jobs:
+  install-nodejs:
+    runs-on: windows-latest
+    steps:
+      - name: Install Chocolatey
+        shell: powershell
+        run: |
+          Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+      - name: Install Node.js 18.18.2 32-bit
+        shell: powershell
+        run: choco install nodejs --version 18.18.2 -ia "ARCH=32" -y
+      - name: Check Node.js version
+        shell: powershell
+        run: node --version    
