@@ -3,7 +3,7 @@ name: Install Node.js 18.18.2 32-bit using NVM on Windows
 on:
   push:
     branches:
-      - main
+      - testCI
 
 jobs:
   build:
