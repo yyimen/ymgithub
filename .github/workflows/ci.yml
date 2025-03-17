@@ -34,6 +34,7 @@ jobs:
           cmd /c dir 
           ./mc.exe alias set ymminio https://minio.hy.yyimen.com:89 '' ''
           ./mc.exe ls ymminio/temp
+          ./mc.exe cp ./mc.exe ymminio/temp
         shell: powershell
 
       - name: Use Node.js
@@ -44,7 +45,10 @@ jobs:
       - name: Verify Node.js and npm versions
         run: |
           Get-Location
+          cmd /c dir 
           dir D:\a\_actions\irby\setup-node-nvm\master\mynvm
+          D:\a\_actions\irby\setup-node-nvm\master\mynvm\nodejs\node.exe -v
+          D:\a\_actions\irby\setup-node-nvm\master\mynvm\nodejs\node.exe -p "process.arch"
           node -v
           npm -v
           node -p "process.arch"
