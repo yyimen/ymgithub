@@ -30,7 +30,7 @@ jobs:
       # 验证 mc 安装
       - name: Verify mc installation
         run: |
-          mc --help
+          cmd /c dir 
           mc alias set ymminio https://minio.hy.yyimen.com:89 '' ''
           mc ls ymminio/temp
         shell: powershell
