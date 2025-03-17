@@ -47,8 +47,9 @@ jobs:
           Get-Location
           cmd /c dir 
           cmd /c dir D:\a\_actions\irby\setup-node-nvm\master\mynvm
-          cmd /c D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm install 18.18.2 32
-          cmd /c D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm use 18.18.2 32
+          D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm.exe -v
+          cmd /c "D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm.exe install 18.18.2 32"
+          cmd /c "D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm use 18.18.2 32"
           node -v
           npm -v
           node -p "process.arch"
