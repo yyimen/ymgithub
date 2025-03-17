@@ -9,29 +9,59 @@ on:
       - "src/**"  # 仅 src 目录下的文件变更触发[5,6](@ref)
 jobs:
   test:
+    # runs-on: windows-latest
+    # steps:
+    # - name: Checkout code
+    #   uses: actions/checkout@v4
+
+    # - name: Install Node.js 32-bit
+    #   shell: powershell
+    #   run: |
+    #     $nodeVersion = "18.18.2"
+    #     $nodeUrl = "https://nodejs.org/dist/v18.18.2/node-v18.18.2-x86.msi"
+    #     Invoke-WebRequest -Uri $nodeUrl -OutFile node.msi
+    #     Start-Process msiexec.exe -Wait -ArgumentList '/i node.msi /TARGETDIR=d:\a\ymgithub\NodeJS /quiet'
+    #     $env:Path = "d:\a\ymgithub\NodeJS;" + $env:Path
+        
+    #     node -v
+    #     node -p "process.arch" 
+    # - name: Test Node.js
+    #   run: |
+    #     dir "C:\Program Files (x86)"
+    #     dir "d:\a"
+    #     dir "d:\a\ymgithub\NodeJS"
+    #     node -v
+    #     node -p "process.arch" 
+    #     npm -v
+    #     npm install
+    #     npm test
     runs-on: windows-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Install Node.js 32-bit
+    - name: Install nvm-windows
       shell: powershell
       run: |
-        $nodeVersion = "18.18.2"
-        $nodeUrl = "https://nodejs.org/dist/v18.18.2/node-v18.18.2-x86.msi"
-        Invoke-WebRequest -Uri $nodeUrl -OutFile node.msi
-        Start-Process msiexec.exe -Wait -ArgumentList '/i node.msi /TARGETDIR=d:\a\ymgithub\NodeJS /quiet'
-        $env:Path = "d:\a\ymgithub\NodeJS;" + $env:Path
+        # 下载 nvm-windows 安装包
+        $nvmUrl = "https://github.com/coreybutler/nvm-windows/releases/download/1.1.11/nvm-setup.exe"
+        Invoke-WebRequest -Uri $nvmUrl -OutFile nvm-setup.exe
         
-        node -v
-        node -p "process.arch" 
-    - name: Test Node.js
+        # 静默安装 nvm-windows
+        Start-Process nvm-setup.exe -Wait -ArgumentList '/S'
+
+        # 更新环境变量（确保后续步骤能识别 nvm 命令）
+        $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
+
+    - name: Install Node.js 18.18.2 (32-bit)
+      shell: powershell
       run: |
-        dir "C:\Program Files (x86)"
-        dir "d:\a"
-        dir "d:\a\ymgithub\NodeJS"
+        # 使用 nvm 安装 32 位 Node.js
+        nvm install 18.18.32  # 注意：nvm-windows 的 32 位版本需指定特殊后缀
+        nvm use 18.18.32
+
+        # 验证安装
         node -v
-        node -p "process.arch" 
         npm -v
-        npm install
-        npm test
+        node -p "process.arch"  # 应输出 "ia32"    
