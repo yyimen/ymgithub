@@ -42,18 +42,30 @@ jobs:
         with:
           node-version: '18.18.2 32'
 
-      - name: Verify Node.js and npm versions
+      - name: Verify nvm installation
         run: |
           Get-Location
           cmd /c dir 
           cmd /c dir D:\a\_actions\irby\setup-node-nvm\master\mynvm
-          D:\a\_actions\irby\setup-node-nvm\master\mynvm\nodejs\node.exe -v
-          D:\a\_actions\irby\setup-node-nvm\master\mynvm\nodejs\node.exe -p "process.arch"
+          cmd /c D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm install 18.18.2 32
+          cmd /c D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm use 18.18.2 32
           node -v
           npm -v
           node -p "process.arch"
         shell: powershell
          
+      # - name: Verify Node.js and npm versions
+      #   run: |
+      #     Get-Location
+      #     cmd /c dir 
+      #     cmd /c dir D:\a\_actions\irby\setup-node-nvm\master\mynvm
+      #     D:\a\_actions\irby\setup-node-nvm\master\mynvm\nodejs\node.exe -v
+      #     D:\a\_actions\irby\setup-node-nvm\master\mynvm\nodejs\node.exe -p "process.arch"
+      #     node -v
+      #     npm -v
+      #     node -p "process.arch"
+      #   shell: powershell
+
       # # 下载并安装 NVM
       # - name: Install NVM
       #   run: |
