@@ -8,10 +8,10 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: env check
-        shell: powershell
+        shell: cmd
         run: |
-          cmd /c "dir c:\Program Files"
-          cmd /c "dir c:\Program Files(x86)"
+          dir "C:\Program Files"
+          dir "C:\Program Files(x86)"
 
       
       - name: check node install
