@@ -28,7 +28,8 @@ jobs:
     - name: Test Node.js
       run: |
         dir "C:\Program Files (x86)"
-        dir "C:\Program Files\nodejs"
+        dir "d:\a"
+        dir "d:\a\NodeJS"
         node -v
         node -p "process.arch" 
         npm -v
