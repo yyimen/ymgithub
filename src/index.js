@@ -1,11 +1,11 @@
 const Database = require('better-sqlite3');
 
 const os = require('os');
-console.log(`系统version：${os.version()}`);
-console.log(`系统架构：${os.arch()}`);
-console.log(`当前架构：${process.arch}`);
-console.log(`platform：${process.platform}`);
-
+console.log(`系统 version ：${os.version()}`);
+console.log(`     系统架构：${os.arch()}`);
+console.log(`     当前架构：${process.arch}`);
+console.log(`    platform：${process.platform}`);
+console.log('CPU',os.EOL,JSON.stringify(os.cpus(), null, 2));
 
 // 初始化内存数据库
 const db = new Database(':memory:');

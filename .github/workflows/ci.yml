@@ -29,6 +29,7 @@ jobs:
       uses: actions/setup-node@v1 # 这个是使用官方制作好的action https://github.com/marketplace?type=actions
       with:
         node-version: ${{ matrix.node-version }}
+    - run: node -v
     - run: npm install
     # - run: npm run build --if-present
     - run: npm test
