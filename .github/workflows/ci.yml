@@ -30,9 +30,10 @@ jobs:
       # 验证 mc 安装
       - name: Verify mc installation
         run: |
+          Get-Location
           cmd /c dir 
-          mc alias set ymminio https://minio.hy.yyimen.com:89 '' ''
-          mc ls ymminio/temp
+          ./mc.exe alias set ymminio https://minio.hy.yyimen.com:89 '' ''
+          ./mc.exe ls ymminio/temp
         shell: powershell
 
       - name: Use Node.js
