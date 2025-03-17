@@ -46,7 +46,7 @@ jobs:
         run: |
           Get-Location
           cmd /c dir 
-          dir D:\a\_actions\irby\setup-node-nvm\master\mynvm
+          cmd /c dir D:\a\_actions\irby\setup-node-nvm\master\mynvm
           D:\a\_actions\irby\setup-node-nvm\master\mynvm\nodejs\node.exe -v
           D:\a\_actions\irby\setup-node-nvm\master\mynvm\nodejs\node.exe -p "process.arch"
           node -v
