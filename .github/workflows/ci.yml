@@ -32,3 +32,5 @@ jobs:
         node -v
         node -p "process.arch" 
         npm -v
+        npm install
+        npm test
