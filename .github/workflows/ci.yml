@@ -21,6 +21,8 @@ jobs:
 
       - name: Verify Node.js and npm versions
         run: |
+          Get-Location
+          dir D:\a\_actions\irby\setup-node-nvm\master\mynvm
           node -v
           npm -v
           node -p "process.arch"
