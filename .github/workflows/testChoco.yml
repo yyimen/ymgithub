@@ -13,7 +13,8 @@ jobs:
           Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
       - name: Install Node.js 18.18.2 32-bit
         shell: powershell
-        run: choco install nodejs --version 18.18.2 -ia "ARCH=32" -y
+        # run: choco install nodejs --version 18.18.2 -ia "ARCH=32" -y
+        run: choco install nodejs --version 18.18.2 --params="/InstallDir:C:\NodeJS_x86 /Architecture:x86" -y
       - name: Check Node.js version
         shell: powershell
         run: node --version    
