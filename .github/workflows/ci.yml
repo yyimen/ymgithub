@@ -7,31 +7,24 @@ on:
     paths:
       - .github/workflows/ci.yml
       - "src/**"  # 仅 src 目录下的文件变更触发[5,6](@ref)
-      
 jobs:
-  ymHelloWorld:
-    env:
-      CI: true
-
-    # runs-on: ubuntu-latest # ubuntu-22.04-arm-os
-    # runs-on: windows-latest # windows-2022 windows-2019 windows-2025
-    # runs-on: ubuntu-24.04-arm
-    runs-on: ${{ matrix.os }}
-
-    # 构建策略矩阵
-    strategy:
-      matrix:
-        # node-version: [21.6.1]
-        node-version: [18.18.2]
-        os: [ ubuntu-24.04-arm, windows-2022, ubuntu-24.04]
-
+  test:
+    runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1 # 这个是使用官方制作好的action https://github.com/marketplace?type=actions
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: node -v
-    - run: npm install
-    # - run: npm run build --if-present
-    - run: npm test
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Node.js 32-bit
+      shell: powershell
+      run: |
+        $nodeVersion = "18.18.2"
+        $nodeUrl = "https://nodejs.org/dist/v$nodeVersion/node-v$nodeVersion-x86.msi"
+        Invoke-WebRequest -Uri $nodeUrl -OutFile node.msi
+        Start-Process msiexec.exe -Wait -ArgumentList '/i node.msi /quiet'
+        $env:Path += ";C:\Program Files (x86)\nodejs"
+
+    - name: Test Node.js
+      run: |
+        node -v  # 应输出 'v18.17.1'
+        node -p "process.arch"  # 应输出 'ia32'
+        npm -v
