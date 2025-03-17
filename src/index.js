@@ -1,5 +1,11 @@
 const Database = require('better-sqlite3');
 
+console.log(process.argv0)
+console.log(process.argv)
+console.log(process.env)
+console.log(process.version)
+
+
 const os = require('os');
 console.log(`系统 version ：${os.version()}`);
 console.log(`     系统架构：${os.arch()}`);
