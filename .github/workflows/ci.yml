@@ -19,15 +19,14 @@ jobs:
       run: |
         $nodeVersion = "18.18.2"
         $nodeUrl = "https://nodejs.org/dist/v18.18.2/node-v18.18.2-x86.msi"
-                   
         Invoke-WebRequest -Uri $nodeUrl -OutFile node.msi
         Start-Process msiexec.exe -Wait -ArgumentList '/i node.msi /quiet'
         $env:Path += ";C:\Program Files (x86)\nodejs"
-
+        node -p "process.arch" 
     - name: Test Node.js
       run: |
-        dir "C:\Program Files (x86)\nodejs"
-        dir "C:\Program Files \nodejs"
+        dir "C:\Program Files (x86)"
+        dir "C:\Program Files\nodejs"
         node -v
         node -p "process.arch" 
         npm -v
