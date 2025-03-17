@@ -18,13 +18,17 @@ jobs:
       shell: powershell
       run: |
         $nodeVersion = "18.18.2"
-        $nodeUrl = "https://nodejs.org/dist/v$nodeVersion/node-v$nodeVersion-x86.msi"
+        $nodeUrl = "https://nodejs.org/dist/v18.18.2/node-v18.18.2-x86.msi"
+                   
         Invoke-WebRequest -Uri $nodeUrl -OutFile node.msi
         Start-Process msiexec.exe -Wait -ArgumentList '/i node.msi /quiet'
         $env:Path += ";C:\Program Files (x86)\nodejs"
 
     - name: Test Node.js
       run: |
-        node -v  # 应输出 'v18.17.1'
-        node -p "process.arch"  # 应输出 'ia32'
+        "C:\Program Files (x86)\nodejs\node" -v  
+        "C:\Program Files (x86)\nodejs\node" -p "process.arch 
+
+        node -v
+        node -p "process.arch" 
         npm -v
