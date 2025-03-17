@@ -37,3 +37,33 @@ github actions ci
 #     - run: npm test
 
 ```
+# mc ok
+```yml
+    steps:
+      # 检出代码
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 下载 mc
+      - name: Download mc
+        run: |
+          Invoke-WebRequest -Uri https://dl.min.io/client/mc/release/windows-amd64/mc.exe -OutFile mc.exe
+        shell: powershell
+
+      # 将 mc 所在目录添加到环境变量
+      - name: Add mc to PATH
+        run: |
+          $env:PATH = "$env:PATH;$PWD"
+          [System.Environment]::SetEnvironmentVariable("PATH", $env:PATH, [System.EnvironmentVariableTarget]::Process)
+        shell: powershell
+
+      # 验证 mc 安装
+      - name: Verify mc installation
+        run: |
+          Get-Location
+          cmd /c dir 
+          ./mc.exe alias set ymminio https://minio.hy.yyimen.com:89 '' ''
+          ./mc.exe ls ymminio/temp
+          ./mc.exe cp ./mc.exe ymminio/temp
+        shell: powershell
+```        

@@ -14,46 +14,38 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 下载 mc
-      - name: Download mc
+      # - name: Use Node.js
+      #   uses: irby/setup-node-nvm@master
+      #   with:
+      #     node-version: '18.18.2 32'
+      
+      # 下载并安装 NVM
+      - name: Install NVM
         run: |
-          Invoke-WebRequest -Uri https://dl.min.io/client/mc/release/windows-amd64/mc.exe -OutFile mc.exe
-        shell: powershell
-
-      # 将 mc 所在目录添加到环境变量
-      - name: Add mc to PATH
-        run: |
-          $env:PATH = "$env:PATH;$PWD"
-          [System.Environment]::SetEnvironmentVariable("PATH", $env:PATH, [System.EnvironmentVariableTarget]::Process)
-        shell: powershell
-
-      # 验证 mc 安装
-      - name: Verify mc installation
-        run: |
+          Invoke-WebRequest -Uri https://github.com/coreybutler/nvm-windows/releases/download/1.2.2/nvm-setup.zip -OutFile nvm-setup.zip
+          Expand-Archive -Path nvm-setup.zip -DestinationPath .
           Get-Location
+          .\nvm-setup\nvm-setup.exe /S
           cmd /c dir 
-          ./mc.exe alias set ymminio https://minio.hy.yyimen.com:89 '' ''
-          ./mc.exe ls ymminio/temp
-          ./mc.exe cp ./mc.exe ymminio/temp
-        shell: powershell
-
-      - name: Use Node.js
-        uses: irby/setup-node-nvm@master
-        with:
-          node-version: '18.18.2 32'
-
-      - name: Verify nvm installation
-        run: |
-          Get-Location
-          cmd /c dir 
-          cmd /c dir D:\a\_actions\irby\setup-node-nvm\master\mynvm
-          D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm.exe -v
-          cmd /c "D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm.exe install 18.18.2 32"
-          cmd /c "D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm use 18.18.2 32"
+          nvm.exe install 18.18.2 32
+          nvm use 18.18.2 32
           node -v
           npm -v
           node -p "process.arch"
-        shell: powershell
+        shell: powershell          
+
+      # - name: Verify nvm installation
+      #   run: |
+      #     Get-Location
+      #     cmd /c dir 
+      #     cmd /c dir D:\a\_actions\irby\setup-node-nvm\master\mynvm
+      #     D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm.exe -v
+      #     cmd /c "D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm.exe install 18.18.2 32"
+      #     cmd /c "D:\a\_actions\irby\setup-node-nvm\master\mynvm\nvm use 18.18.2 32"
+      #     node -v
+      #     npm -v
+      #     node -p "process.arch"
+      #   shell: powershell
          
       # - name: Verify Node.js and npm versions
       #   run: |
@@ -70,7 +62,7 @@ jobs:
       # # 下载并安装 NVM
       # - name: Install NVM
       #   run: |
-      #     Invoke-WebRequest -Uri https://github.com/coreybutler/nvm-windows/releases/download/1.1.11/nvm-setup.zip -OutFile nvm-setup.zip
+      #     Invoke-WebRequest -Uri https://github.com/coreybutler/nvm-windows/releases/download/1.2.2/nvm-setup.zip -OutFile nvm-setup.zip
       #     Expand-Archive -Path nvm-setup.zip -DestinationPath .
       #     Get-Location
       #     .\nvm-setup\nvm-setup.exe /S
