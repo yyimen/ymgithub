@@ -27,7 +27,7 @@ jobs:
           Expand-Archive -Path nvm-setup.zip -DestinationPath .\nvm-setup
           cmd /c dir 
           Get-Location
-          cmd /c dir 
+          cmd /c "dir .\nvm-setup\nvm-setup.exe"
           .\nvm-setup\nvm-setup.exe /S
           cmd /c dir 
           nvm.exe install 18.18.2 32
