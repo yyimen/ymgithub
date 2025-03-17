@@ -20,8 +20,8 @@ jobs:
         $nodeVersion = "18.18.2"
         $nodeUrl = "https://nodejs.org/dist/v18.18.2/node-v18.18.2-x86.msi"
         Invoke-WebRequest -Uri $nodeUrl -OutFile node.msi
-        Start-Process msiexec.exe -Wait -ArgumentList '/i node.msi /TARGETDIR=d:\a\NodeJS /quiet'
-        $env:Path = "d:\a\NodeJS;" + $env:Path
+        Start-Process msiexec.exe -Wait -ArgumentList '/i node.msi /TARGETDIR=d:\a\ymgithub\NodeJS /quiet'
+        $env:Path = "d:\a\ymgithub\NodeJS;" + $env:Path
         
         node -v
         node -p "process.arch" 
@@ -29,7 +29,7 @@ jobs:
       run: |
         dir "C:\Program Files (x86)"
         dir "d:\a"
-        dir "d:\a\NodeJS"
+        dir "d:\a\ymgithub\NodeJS"
         node -v
         node -p "process.arch" 
         npm -v
