@@ -12,8 +12,13 @@ jobs:
         run: dir "C:\Program Files"
       - name: env check
         shell: cmd
-        run: dir "C:\Program Files(x86)"
+        run: dir "C:\Program Files (x86)"
       
+      - uses: actions/setup-node@v1 # 这个是使用官方制作好的action https://github.com/marketplace?type=actions
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: node -v
+
       - name: check node install
         shell: cmd  
         run: |
