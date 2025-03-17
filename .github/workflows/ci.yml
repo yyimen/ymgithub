@@ -1,12 +1,18 @@
 name: Node.js CI
 
-on: [push]
+on: 
+  push:
+    branches:
+      - testCI      # 仅 testCI 分支的推送触发
+    paths:
+      - "src/**"  # 仅 src 目录下的文件变更触发[5,6](@ref)
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-
+    # runs-on: ubuntu-latest
+    runs-on: windows-latest
+    
     strategy:
       matrix:
         node-version: [21.6.1]
