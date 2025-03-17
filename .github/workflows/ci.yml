@@ -14,8 +14,10 @@ jobs:
       CI: true
 
     # runs-on: ubuntu-latest # ubuntu-22.04-arm-os
-    runs-on: windows-latest # windows-2022 windows-2019 windows-2025
+    # runs-on: windows-latest # windows-2022 windows-2019 windows-2025
+    runs-on: ubuntu-24.04-arm
 
+    # 构建策略矩阵
     strategy:
       matrix:
         # node-version: [21.6.1]
@@ -24,7 +26,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v1 # 这个是使用官方制作好的action https://github.com/marketplace?type=actions
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
